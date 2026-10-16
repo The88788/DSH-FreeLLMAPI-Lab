@@ -1,5 +1,7 @@
 # Changelog
 
+[Русский](CHANGELOG.md) · **English**
+
 ## Unreleased (2026-10-17)
 
 - Drafted an independent lab roadmap with completion conditions and a dated progress journal.
