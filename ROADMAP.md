@@ -1,131 +1,130 @@
-# Project roadmap and progress log
+# План проекта и журнал выполнения
 
-> **Canonical project plan.** Status last reviewed: **2026-10-17** (UTC+05).  
-> Maintainer: **The88788**. Project: **DSH-FreeLLMAPI-Lab**.  
-> This file is intended to live in the GitHub repository and be updated with every completed milestone.  
-> Russian companion: [ROADMAP.ru.md](ROADMAP.ru.md). English is the canonical status source; translations should track it.
+**Основной документ проекта (русский язык).** [English translation](ROADMAP.en.md) · [Главная страница](README.md)
 
-## Mission
+> **Последняя проверка: 17 октября 2026 г. (UTC+05).** Автор: **The88788**.  
+> Этот документ обновляется после подтверждённых этапов. Изменения сохраняются в GitHub; отдельные задачи обсуждаются в Issues.
 
-Build a reproducible, independent community lab for improving **DeepSeek Harness (DSH) + dsh-camel + FreeLLMAPI** reliability, especially when provider quotas are restrictive or unpredictable. Measure **actual coding-task completion**, not only whether a short API request succeeds. Make diagnostics reproducible, configurations safe to copy, and community findings verifiable.
+## Цель
 
-### Ground rules
+Создать независимую лабораторию, помогающую стабильно использовать **DeepSeek Harness + dsh-camel + FreeLLMAPI** при ограниченных и непредсказуемых квотах. Исследовать не только ответы API, но и **реальное завершение заданий программирования**, качество вызовов инструментов, расход запросов и причины остановок.
 
-- **Evidence before status.** `tested` means a reproducible check with stated limitations; `experimental` means the configuration is not yet proven on a real agent workflow.
-- **Never publish raw DSH sessions, source code, credentials, private prompts, absolute private paths, or provider-account identifiers.** Publish only reviewed aggregate results and sanitized examples.
-- **No unapproved deployments.** Configuration generators must only propose patches and show diffs; the maintainer decides whether to apply them.
-- **Rate limits are multidimensional.** Distinguish per-request context/output caps from RPM, ITPM/TPM, daily quotas, wallet balance, cooldown, and provider failures.
-- **A `completed` agent turn is not evidence that the task's acceptance criteria passed.** The task owner must verify the result.
-- **Avoid provider churn.** Prioritize diagnosing and fixing request policy before recommending a new model.
-- **Compatibility is versioned.** State DSH, Camel, FreeLLMAPI and operating-system versions whenever known; use `unknown` otherwise.
+## Принципы
 
-## Work board
+- **Только проверенные выводы.** «Экспериментальный» не равен «стабильный». Статус «проверено» требует повторяемого результата и явных ограничений.
+- **Защита приватности.** Не публикуем исходные журналы DSH, API-ключи, промпты, код чужих проектов, персональные пути и идентификаторы аккаунтов.
+- **Никаких скрытых изменений.** Генератор может предложить патч и показать различия, но не должен автоматически переписывать рабочие настройки.
+- **Разделяем ограничения.** RPM, TPM, ITPM, RPD, контекстное окно, `maxTokens`, баланс аккаунта, cooldown и ошибки инфраструктуры имеют разные причины.
+- **Проверяем фактический результат.** Статус `completed` в DSH не означает, что требования задачи выполнены.
+- **Указываем версии.** По возможности фиксируем ОС, версии DSH, Camel, FreeLLMAPI и дату измерения. Неизвестные данные обозначаем `unknown`.
 
-### Stage 0: Baseline and scope (existing work)
+## Этап 0. Исходный аудит и первые испытания
 
-- [x] Capture and analyze a historical dataset of **33 DSH sessions, 4,028 events**, covering 2026-10-15/16; identify layered retry, `RATE_LIMIT`, tool errors, and request-size failures. See [sanitized baseline](research/2026-10-16-baseline.md).
-- [x] Confirm the installed Camel profile loads **8 adaptive route overrides**, with `retry.enabled: false` and no task-local override, using `/camel status` on 2026-10-17.
-- [ ] Verify that the **active DSH provider retryPolicy** is the intended fail-fast or bounded variant after applying the revised DSH config. Camel status alone does not prove this.
-- [ ] Run a small number of **real coding tasks** under the revised settings; record acceptance-test results and any manual model switching.
+- [x] Разобрать исторические **33 сессии DSH, 4 028 событий** за 15–16 октября 2026 г. Выявить дублирующиеся повторы, `RATE_LIMIT`, ошибки инструментов и лимиты запросов. [Обезличенный разбор](research/2026-10-16-baseline.md).
+- [x] Подтвердить через `/camel status` загрузку **8 индивидуальных адаптивных маршрутов** с `retry.enabled: false` и `taskOverride: null` (17.10.2026).
+- [ ] Проверить **действующий `retryPolicy` самого DSH** после применения нового конфига. Вывод Camel не подтверждает настройку DSH.
+- [ ] Выполнить несколько реальных заданий программирования с проверяемыми результатами и зафиксировать ручные переключения моделей.
 
-### Stage 1: Public v0.1 foundation
+**Готовность:** новые настройки проверены на задачах, причины оставшихся ошибок документированы.
 
-- [x] Draft the repository charter, progress file, templates, safety guidance, and sample configurations locally (2026-10-17).
-- [x] Create the public GitHub repository **The88788/DSH-FreeLLMAPI-Lab** and upload the starter files (2026-10-17).
-- [x] Verify the published file tree (18 files), Markdown relative links, YAML/JSON syntax, and README language navigation (2026-10-17).
-- [ ] Review the English and Russian guides; ask a native Chinese reader to review the Chinese draft.
-- [x] Mark all initial configurations **EXPERIMENTAL** until real coding-task verification.
-- [ ] Publish release/tag `v0.1.0` only after the public GitHub repository passes these checks.
+## Этап 1. Публичная основа (v0.1)
 
-**Exit criteria:** public repository is accessible, no secrets or private logs have been committed, multilingual landing pages work, methodology is documented, and the testable configs are clearly labelled experimental.
+- [x] Подготовить структуру проекта, методику, шаблоны, правила безопасности и экспериментальные примеры YAML (17.10.2026).
+- [x] Создать открытый репозиторий [The88788/DSH-FreeLLMAPI-Lab](https://github.com/The88788/DSH-FreeLLMAPI-Lab), опубликовать стартовые 18 файлов (17.10.2026).
+- [x] Проверить исходную структуру, относительные ссылки, синтаксис YAML/JSON и навигацию по языкам.
+- [x] Отметить начальные конфигурации как **экспериментальные** до реальных тестов.
+- [x] Сделать **русский основным языком** главной страницы, плана и задач, сохранить английские переводы (17.10.2026).
+- [ ] Проверить английскую и русскую инструкции, найти носителя китайского языка для проверки перевода.
+- [ ] Опубликовать тег и релиз `v0.1.0` после необходимых проверок.
 
-### Stage 2: Local session collection and analysis (v0.2)
+**Готовность:** понятная публичная документация, доступные переводы, отсутствие секретов и приватных логов, явно указанные ограничения примеров.
 
-Tracked in [Issue #2: Local session collector and analyzer](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/2).
+## Этап 2. Локальный сбор и анализ журналов (v0.2)
 
-- [ ] Implement `dsh-collect`: discover sessions from the configured DSH root (default `%USERPROFILE%\\.dsh\\sessions`), include `.jsonl` and `.jsonl.zstd` generations, avoid the known mistake of filtering **only** by last modification time, and track collection state.
-- [ ] Add portable, reproducible **Zstandard decoding** and supported session schema/version checks. On unsupported formats, fail clearly instead of guessing.
-- [ ] Implement redaction at the ingestion boundary: credentials, user prompts, source code, tool payloads and identifying paths never enter exported public reports by default.
-- [ ] Implement `dsh-analyze` to count model attempts, tool calls, retry scheduling vs execution, time-to-first-tool, rate-limit classes, error taxonomy, cancellations, and per-session outcomes.
-- [ ] Preserve distinguishability of errors caused by FreeLLMAPI cooldown vs real upstream requests when data allows; mark uncertainty otherwise.
-- [ ] Add fixtures with **synthetic sanitized logs**, unit tests, and repeatable CLI commands.
+[Issue #2: Создать сборщик и анализатор сессий DSH](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/2).
 
-**Exit criteria:** for a synthetic fixture and at least one private sample, local analysis produces reproducible aggregate summaries, no raw text leaks into public output, and reruns do not duplicate sessions.
+- [ ] Разработать `dsh-collect`: определять корень DSH (по умолчанию `%USERPROFILE%\\.dsh\\sessions`), собирать `.jsonl` и `.jsonl.zstd`, отслеживать уже обработанные файлы; отбирать события по времени внутри журнала, а не только по дате изменения файла.
+- [ ] Поддержать распаковку Zstandard и проверку известных версий формата; неподдерживаемые версии обозначать ошибкой без догадок.
+- [ ] Обезличивать исходные события до подготовки публичных отчётов. Промпты, код, ключи и содержимое вызовов инструментов не должны попадать в экспорт по умолчанию.
+- [ ] Разработать `dsh-analyze`: учитывать попытки моделей, вызовы инструментов, повторы DSH/Camel, задержку до первого инструмента, `RATE_LIMIT`, отмены и завершение работы.
+- [ ] По возможности различать отказ FreeLLMAPI в режиме cooldown и настоящий запрос к провайдеру; неопределённость указывать явно.
+- [ ] Добавить искусственные безопасные журналы, модульные тесты и повторяемый запуск из CLI.
 
-### Stage 3: Configuration proposals and experiments (v0.3)
+**Готовность:** один и тот же набор данных даёт одинаковый отчёт; повторный импорт не создаёт дубликатов; приватные данные не выходят наружу.
 
-- [ ] Build `dsh-config` to inspect effective DSH/Camel configuration and emit **candidate patches plus a diff**, never silently overwrite live profiles.
-- [ ] Validate YAML and schema compatibility for the detected DSH/Camel versions.
-- [ ] Track actual effective `(DSH provider, model)` identities, including `gateway:<model id>` instead of inferring provider from a display name.
-- [ ] Propose adaptive per-route request pacing from observed quota evidence; do not extrapolate from a single `429`.
-- [ ] Separate hard request/input caps, context windows, output `maxTokens`, and RPM/TPM/RPD limits.
-- [ ] Add `baseline -> candidate -> controlled real-task run -> compare -> accept/reject` workflow.
-- [ ] Provide rollback guidance and maintain backups before local edits.
+## Этап 3. Предложения по конфигурациям (v0.3)
 
-**Exit criteria:** candidate patch and rollback are reproducible; no config change happens automatically; at least one controlled run is compared with a baseline.
+- [ ] Разработать `dsh-config`: читать фактические настройки DSH/Camel, создавать **кандидат изменений и diff**, не подменяя активные файлы.
+- [ ] Проверять синтаксис YAML и совместимость параметров с обнаруженными версиями DSH/Camel.
+- [ ] Использовать точную пару `(provider, model)`, например `gateway:radeon:DeepSeek-V4-Flash`, а не подписи моделей.
+- [ ] Предлагать темп запросов с учётом реальных квот и журналов; одиночный `429` не считать достаточным основанием.
+- [ ] Не путать ограничение размера HTTP-запроса, контекстное окно, `maxTokens` и ограничения RPM/TPM/RPD.
+- [ ] Реализовать последовательность: **исходное состояние → конфиг-кандидат → контролируемый тест → сравнение → принятие/откат**.
+- [ ] Описать резервное копирование и безопасный откат.
 
-### Stage 4: FreeLLMAPI correlation (v0.4)
+**Готовность:** изменения проверяемы и обратимы, принятие решения остаётся за пользователем.
 
-- [ ] Add opt-in import of sanitized FreeLLMAPI request logs / SQLite **read-only exports**.
-- [ ] Correlate events using timestamps, model IDs, and permitted request metadata with confidence levels; do not claim that a match is proven without a stable identifier.
-- [ ] Separate gateway-generated errors, provider errors, DSH request errors, and tool execution errors.
-- [ ] Produce a provider/model reliability matrix with evidence count, test depth, measured quotas, and freshness date.
+## Этап 4. Сопоставление с журналами FreeLLMAPI (v0.4)
 
-**Exit criteria:** at least one multi-layer incident is reconstructed without exposing secrets, and matching uncertainties are explicit.
+- [ ] Добавить необязательный импорт обезличенных серверных журналов и SQLite-экспортов **только для чтения**.
+- [ ] Сопоставлять DSH и FreeLLMAPI по времени, модели и доступным идентификаторам, с оценкой уверенности.
+- [ ] Разделять ошибки клиента, шлюза, провайдера и локальных инструментов.
+- [ ] Построить матрицу надёжности моделей с числом проверок, типом теста, измеренными квотами и датой наблюдения.
 
-### Stage 5: Community workflow and translations (v0.5)
+**Готовность:** хотя бы один инцидент восстановлен по нескольким источникам без публикации секретов.
 
-- [ ] Add Issue forms for reproducible session failures, verified configuration reports, translation requests, and documentation bugs.
-- [ ] Add CI checks: Markdown links, YAML sample structure, Python/PowerShell scripts, synthetic analyzer fixtures, and secret scans where possible.
-- [ ] Publish an English source-of-truth glossary plus Russian and Simplified Chinese translations, with visible review state.
-- [ ] Define compatibility and contributor evidence rules: environment/version/quota source/log excerpt redacted/test acceptance.
-- [ ] Welcome additional language maintainers and record human reviews by version.
-- [ ] Open a **small documentation PR** in FreeLLMAPI's `docs/en/clients/01-agent-clients.md`, if maintainers consider an independent community guide appropriate. Ensure the PR contributes useful DSH version-specific corrections, not only self-promotion.
+## Этап 5. Сообщество и переводы (v0.5)
 
-**Exit criteria:** external contributors can submit comparable results with no access to private logs; translations and PRs have review instructions.
+- [ ] Добавить формы Issues для ошибок, проверенных конфигов, переводов и проблем документации.
+- [ ] Настроить CI: проверку Markdown-ссылок, YAML, скриптов Python/PowerShell, искусственных тестов и возможных секретов.
+- [ ] Подготовить технический словарь и поддерживать переводы на английский и китайский с указанием статуса проверки.
+- [ ] Зафиксировать требования к подтверждениям: версии, система, точная модель, источник квоты, число повторов, критерии приёмки.
+- [ ] Пригласить носителей языков и авторов альтернативных конфигураций.
+- [ ] Предложить небольшой документационный PR в FreeLLMAPI, связанный с разделом DSH, если авторы проекта сочтут ссылку на независимое руководство полезной.
 
-### Stage 6: Public stable methodology (v1.0)
+**Готовность:** другие пользователи могут безопасно добавлять результаты, понятна процедура проверки и выпуска переводов.
 
-- [ ] Demonstrate consistent, reproducible task-level improvements across several workloads and multiple runs.
-- [ ] Publish stable/experimental configuration classification criteria and support matrix.
-- [ ] Document limitations, upstream service terms, and fallback/rollback scenarios.
-- [ ] Ship tagged v1.0 with tested installation, data safety, and contribution workflows.
+## Этап 6. Устойчивая методика (v1.0)
 
-## Active work
+- [ ] Подтвердить воспроизводимые улучшения на нескольких типах заданий и нескольких повторениях.
+- [ ] Разработать условия присвоения статусов «стабильный» и «экспериментальный».
+- [ ] Описать ограничения, условия сторонних сервисов и сценарии отката.
+- [ ] Выпустить версию `v1.0` с протестированной инструкцией по установке и безопасному обмену результатами.
 
-- [Issue #1: Verify DSH retry policy and real coding-task acceptance](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/1) (Stage 0, priority 1)
-- [Issue #2: Build local-only DSH session collector and analyzer](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/2) (Stage 2, priority 2)
+## Активные задачи
 
-## Initial validation protocol (proposed)
+- [Issue #1: Проверить DSH и Camel на реальных заданиях](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/1) (высший приоритет, этап 0).
+- [Issue #2: Создать локальный анализатор DSH](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/2) (следующий приоритет, этап 2).
 
-1. **Freeze baseline**: record sanitized DSH/Camel/FreeLLMAPI versions; store a private copy of the original configuration, plus the config checksum and date of change.
-2. **Capture a task definition** with unambiguous acceptance criteria (e.g., modified files, unit tests, build checks). Record actual start/end and human interventions.
-3. **Run a small test set**: short tool-use task, medium code-edit task, one longer task requiring checkpoints. Avoid sending the same expensive request through dozens of failing providers.
-4. **Collect after each task**, locally: whether accepted, LLM failures grouped by code, DSH vs Camel retries, total wait, first useful tool latency, number of model switches, tool failures, and cost if measurable.
-5. **Compare under similar conditions**. Distinguish changed model/quota/environment from the configuration change itself; don't call a single successful task statistically reliable.
-6. **Approve or reject** the candidate. Record justification and whether a rollback is needed. Publish only sanitized aggregate results with limitations.
+## Как проводить испытания
 
-### Metric definitions
+1. Записать версии и сохранить **приватную** резервную копию текущих настроек; получить хеш конфигурации без раскрытия секретов.
+2. Выбрать задание с однозначными критериями готовности: изменённые файлы, тесты, сборка или проверка результата.
+3. Провести короткое, среднее и длительное задания с реальными инструментами, не тратя квоты на многократные заведомо неработающие запросы.
+4. Собрать локальные события: выполнено ли ТЗ, коды ошибок, повторы DSH/Camel, время ожидания, первое полезное действие, переключения модели, расход токенов (если достоверен).
+5. Сравнивать только сопоставимые условия. Разные задачи и разные квоты нельзя выдавать за строгий A/B-тест.
+6. Принять или отклонить конфиг-кандидат с обоснованием. Опубликовать только обезличенные выводы.
 
-- **Task success rate**: tasks passing explicit human/automated acceptance checks ÷ assessed tasks. Do **not** substitute `turn/end: completed`.
-- **Time to first tool**: from first agent model request to first useful tool call; missing first tool is separately classified.
-- **Retry overhead**: number of retried requests, total wait time and provider calls where actually known; never infer upstream calls from local cooldown response counts.
-- **Wasteful repetition**: duplicate failing tool calls without changed preconditions and retry of known permanent errors.
-- **Token/cost efficiency**: per accepted task, only where input/output usage and pricing/credits are reliably available.
+### Метрики
 
-## Progress journal (append one dated item whenever evidence is ready)
+- **Успешность заданий:** доля заданий, прошедших проверку требований, а не число ходов `completed`.
+- **Время до первого инструмента:** интервал от первого запроса модели до первого полезного вызова инструмента; отсутствие вызова учитывать отдельно.
+- **Цена повторов:** число реальных повторов и время ожидания. Не считать локальные ответы cooldown реальными запросами к провайдеру.
+- **Бесполезные действия:** чтение заведомо отсутствующего файла без изменения условий, повторение неисправимых запросов.
+- **Расход:** токены, кредиты или деньги на принятое задание только при наличии достоверной статистики.
 
-| Date (UTC+05) | Status | Item | Evidence / next action |
+## Журнал прогресса
+
+| Дата (UTC+05) | Статус | Работа | Подтверждение / следующий шаг |
 |---|---|---|---|
-| 2026-10-15/16 | Completed | Historic DSH incident analysis | 33 sessions; 4,028 events; 166 retry events; outcomes require task-level verification. Source private, statistics sanitized. |
-| 2026-10-17 | Completed | Camel loading check | User-provided `/camel status`: 8 route overrides, `retry.enabled=false`, taskOverride=null; runtime pacing effectiveness not yet evaluated. |
-| 2026-10-17 | Completed | Public foundation published | 18 files on main, README EN/RU/ZH, license, research, example configs; local syntax and link targets verified. |
-| 2026-10-17 | Started | Tracking implementation and validation | Opened [Issue #1](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/1) and [Issue #2](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/2). Real-task tests pending. |
+| 15–16.10.2026 | Готово | Первичный разбор DSH | 33 сессии, 4 028 событий, 166 событий повторов; реальные результаты заданий требуют отдельной проверки. |
+| 17.10.2026 | Готово | Проверка загрузки Camel | `/camel status`: 8 маршрутов, `retry.enabled=false`, `taskOverride=null`. Эффективность ещё не измерена. |
+| 17.10.2026 | Готово | Публикация стартового репозитория | 18 исходных файлов, примеры, правила безопасности, статистика; публичная основа готова. |
+| 17.10.2026 | Начато | Отслеживание реализации и испытаний | Созданы [Issue #1](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/1) и [Issue #2](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/2); реальная проверка впереди. |
+| 17.10.2026 | Готово | Русский язык по умолчанию | Главная страница, рабочий план и Issues переведены; английские копии сохранены. |
 
-## How to maintain this file
+## Как обновлять план
 
-- Update a checkbox **only after** its explicit exit condition is satisfied.
-- Add a short progress-journal line for every completed or blocked milestone: date, result, evidence and next action.
-- Link GitHub Issues/PRs/commits when they exist, rather than rewriting their full discussions here.
-- Update **Last reviewed** and the relevant translation after meaningful changes.
-- Never add raw logs, IPs, credentials, exact private session IDs, user identities or confidential task titles to this file.
+Отмечать чекбокс **только после подтверждения результата**. Для каждого завершённого или заблокированного этапа добавлять дату, вывод, доказательство и следующий шаг. Ссылаться на существующие Issues, PR и коммиты, не копировать переписку целиком.
+
+В репозиторий не записывать приватные IP-адреса, ключи, сырые журналы, идентификаторы сессий, персональные пути или закрытые названия рабочих заданий.
