@@ -23,7 +23,7 @@ Build a reproducible, independent community lab for improving **DeepSeek Harness
 
 ### Stage 0: Baseline and scope (existing work)
 
-- [x] Capture and analyze a historical dataset of **33 DSH sessions, 4,028 events**, covering 2026-10-15/16; identify layered retry, `RATE_LIMIT`, tool errors, and request-size failures. See [sanitized baseline](research/2026-10-16-baseline.md).
+- [x] Capture and analyze a historical dataset of **33 DSH sessions, 4,028 events**, covering 2026-10-15/16; identify layered retry, `RATE_LIMIT`, tool errors, and request-size failures. See [sanitized baseline](research/2026-10-16-baseline.en.md).
 - [x] Confirm the installed Camel profile loads **8 adaptive route overrides**, with `retry.enabled: false` and no task-local override, using `/camel status` on 2026-10-17.
 - [ ] Verify that the **active DSH provider retryPolicy** is the intended fail-fast or bounded variant after applying the revised DSH config. Camel status alone does not prove this.
 - [ ] Run a small number of **real coding tasks** under the revised settings; record acceptance-test results and any manual model switching.
@@ -93,8 +93,8 @@ Tracked in [Issue #2: Local session collector and analyzer](https://github.com/T
 
 ## Active work
 
-- [Issue #1: Verify DSH retry policy and real coding-task acceptance](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/1) (Stage 0, priority 1)
-- [Issue #2: Build local-only DSH session collector and analyzer](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/2) (Stage 2, priority 2)
+- [Issue #1: DSH/Camel validation (issue text in Russian)](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/1) (Stage 0, priority 1)
+- [Issue #2: DSH session analyzer (issue text in Russian)](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/2) (Stage 2, priority 2)
 
 ## Initial validation protocol (proposed)
 
