@@ -1,10 +1,13 @@
-# Changelog
+# История изменений
 
-## Unreleased (2026-10-17)
+**Русский** · [English](CHANGELOG.en.md)
 
-- Drafted an independent lab roadmap with completion conditions and a dated progress journal.
-- Prepared README in English, Russian and Simplified Chinese (Chinese requires native review).
-- Added experimental DSH and Camel configuration examples with explicit limitations and no real credentials.
-- Added a sanitized 33-session observational baseline, reproducibility methodology, security rules, and a private trial initialization script.
+## Не выпущено (17 октября 2026 года)
 
-**Not released:** post-configuration task test results and the first version tag remain pending. The initial public repository is available.
+- Создана независимая лаборатория и [план проекта](ROADMAP.md) с критериями завершения и журналом прогресса.
+- Подготовлены README на русском, английском и упрощённом китайском. Китайская версия ожидает проверки носителем языка.
+- Добавлены экспериментальные примеры настройки DSH и Camel без действующих API-ключей.
+- Опубликованы обезличенный разбор 33 сессий, методика экспериментов, политика безопасности и первый локальный PowerShell-скрипт.
+- **Русский назначен основным языком** README, рабочего плана, правил, описаний исследований и двух активных Issues; английские копии сохранены для зарубежных участников.
+
+**Пока не выпущено:** результаты контрольных задач после новых настроек и тег первой версии `v0.1.0`.
