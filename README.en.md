@@ -12,16 +12,16 @@ An OpenAI-compatible API returning `200 OK` does not imply a coding agent can fi
 
 ## What's inside
 
-- [Project roadmap and progress journal](ROADMAP.md) ([Russian overview](ROADMAP.ru.md))
-- [Experiment and evaluation methodology](docs/methodology.md)
-- [Sanitized baseline: 33 DSH sessions](research/2026-10-16-baseline.md)
+- [Project roadmap and progress journal](ROADMAP.en.md) ([Russian master](ROADMAP.md))
+- [Experiment and evaluation methodology](docs/methodology.en.md)
+- [Sanitized baseline: 33 DSH sessions](research/2026-10-16-baseline.en.md)
 - [Experimental DSH gateway example](examples/dsh/gateway-minimal.example.yml)
 - [Experimental dsh-camel profile example](examples/camel/desktop-profile.patch.example.yml)
-- [Contribution rules](CONTRIBUTING.md) and [data security policy](SECURITY.md)
+- [Contribution rules](CONTRIBUTING.en.md) and [data security policy](SECURITY.en.md)
 
 ## Quick start
 
-1. Read [SECURITY.md](SECURITY.md) before collecting or sharing any data.
+1. Read [SECURITY.en.md](SECURITY.en.md) before collecting or sharing any data.
 2. Install and configure DSH, FreeLLMAPI and optionally dsh-camel using their own official instructions.
 3. **Merge**, don't replace, the relevant `llm-pi-ai` or `camel` row in your own profile. Never commit your private profile or credential files.
 4. Select a task with verifiable acceptance criteria and use the [experiment template](templates/experiment.example.json).
@@ -33,4 +33,4 @@ We welcome tested configurations, quota observations with a source/date, reprodu
 
 **Please submit aggregate results or synthetic fixtures only.** Do not upload raw session exports, prompts, proprietary source code, credentials or identifying information.
 
-Start with [CONTRIBUTING.md](CONTRIBUTING.md). This project is MIT-licensed.
+Start with [CONTRIBUTING.en.md](CONTRIBUTING.en.md). This project is MIT-licensed.
