@@ -12,7 +12,7 @@ For quotas, distinguish officially documented limits from experimental observati
 
 ## Data safety
 
-Never attach raw DSH exports, API keys, cookies, complete prompts, user code, proprietary repositories, absolute private paths, user identifiers, or an unredacted SQLite database. Use sanitized summaries and synthetic test fixtures. See [SECURITY.md](SECURITY.md).
+Never attach raw DSH exports, API keys, cookies, complete prompts, user code, proprietary repositories, absolute private paths, user identifiers, or an unredacted SQLite database. Use sanitized summaries and synthetic test fixtures. See [SECURITY.en.md](SECURITY.en.md).
 
 ## Pull requests
 
@@ -20,7 +20,7 @@ Keep PRs small and scoped. A PR changing adaptive pacing must explain its logic 
 
 ## Work tracking
 
-Use GitHub Issues to discuss problems. Update [ROADMAP.md](ROADMAP.md) only when milestone evidence supports a change. Every finished stage gets a dated line in the progress journal.
+Use GitHub Issues to discuss problems. Update [ROADMAP.en.md](ROADMAP.en.md) only when milestone evidence supports a change. Every finished stage gets a dated line in the progress journal.
 
 ## External projects
 
