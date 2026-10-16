@@ -1,47 +1,53 @@
-# Research methodology (v0.1 draft)
+# Методика исследования (черновик v0.1)
 
-## Scope
+**Русский** · [English](methodology.en.md)
 
-Test *end-to-end coding agents*, not just isolated HTTP chat completion. A quick chat probe, a tool-call probe, and a real task are three different evidence levels. Label each result accordingly.
+## Что проверяем
 
-## Version and environment metadata
+Исследуем **полную работу AI-агента над задачей программирования**, а не только запрос к Chat Completions. Короткий ответ API, корректный вызов инструмента и выполненное задание являются тремя разными уровнями подтверждения. Не смешивайте их.
 
-For each test, note (without credentials): UTC timestamp, OS family/version, DSH version, dsh-camel version, FreeLLMAPI version, route ID, provider/model ID, config hash, known quota source/date, task ID chosen for a public synthetic fixture, and relevant workflow capabilities (tools/vision/streaming).
+## Какие сведения записывать
 
-## Minimum task classes
+Дата и время UTC, ОС и версия, версия DSH, версия dsh-camel, версия FreeLLMAPI, идентификатор маршрута и модели, безопасный хеш конфигурации, сведения об ограничениях с источником и датой, тип сценария и проверяемые возможности (Tools, Vision, Streaming).
 
-1. Short: read a file, report a fact and execute a harmless tool; expected output is checkable.
-2. Medium: change a small part of an example codebase, then run its tests.
-3. Long: complete several independently verifiable stages and write a checkpoint after each.
+API-ключи, полные приватные промпты и персональные данные записывать в публичный отчёт нельзя.
 
-Do not spend scarce quota on repeated probes when the provider advertises exhaustion or the gateway has no usable route.
+## Минимальный набор заданий
 
-## Events and labels
+1. **Короткое:** прочитать файл, получить проверяемый ответ, вызвать безопасный инструмент.
+2. **Среднее:** изменить небольшой фрагмент примерного проекта и выполнить тесты.
+3. **Длинное:** завершить несколько независимых этапов с проверкой и контрольными точками.
 
-- **HTTP Chat PASS**: one ordinary API response. No claim about tools or agent workflows.
-- **Tool PASS**: a valid tool-call/result exchange. No claim about complete tasks.
-- **Agent attempted**: session started and sent at least one model request.
-- **Agent reached tool**: session made at least one useful tool call.
-- **Turn completed**: DSH recorded `turn/end=completed`; task acceptance may still fail.
-- **Task accepted**: task-specific build/tests or human review confirm requirements.
-- **Blocked**: permanent request or environment issue; document category and evidence.
+Не расходуйте квоты на многократные заведомо бесполезные запросы, когда уже подтверждено исчерпание лимита или отключение маршрута.
 
-## Diagnostic categories
+## Как различать результаты
 
-`RATE_LIMIT`, `SERVER`, `TIMEOUT`, `TRANSPORT`, `INVALID_REQUEST`, `CONTEXT_WINDOW_EXCEEDED`, auth/quota/cooldown, missing/disabled model, bad tool-call arguments, missing file, file-modification conflict, Windows ACL/sandbox, interrupted/aborted. One reported status code may have more than one root cause; preserve raw type locally and record the interpretation with confidence.
+- **HTTP Chat PASS:** получен обычный ответ API. Tools и завершение задач не подтверждены.
+- **Tool PASS:** состоялся корректный вызов инструмента и получен результат. Выполнение задания ещё не подтверждено.
+- **Попытка агента:** сессия началась, отправлен минимум один запрос к модели.
+- **Первый полезный инструмент:** агент выполнил минимум один результативный вызов инструмента.
+- **Ход завершён:** DSH зарегистрировал `turn/end=completed`. Это не гарантирует выполнения ТЗ.
+- **Задание принято:** выполнены проверки кода, тесты или экспертная проверка требований.
+- **Работа заблокирована:** известная неисправимая проблема запроса либо окружения. Записать категорию и доказательство.
 
-## Data policy
+## Классификация ошибок
 
-Private logs may contain prompts, source code, tool outputs, secret names or values, workstation paths, and customer data. Default publication format is *counts, aggregate timings, version facts and synthetic reproduction steps*. Review sanitized output manually before a PR. Never automatically upload a raw log or SQLite database.
+`RATE_LIMIT`, `SERVER`, `TIMEOUT`, `TRANSPORT`, `INVALID_REQUEST`, `CONTEXT_WINDOW_EXCEEDED`, ошибки авторизации/квот, cooldown, отсутствующие/отключённые модели, некорректные аргументы Tools, отсутствующие файлы, конфликты редактирования, Windows ACL/Sandbox, отмены.
 
-## Safe comparison
+Один HTTP-код может соответствовать нескольким первопричинам. Сохраняйте подробности приватно, а в отчёте указывайте вывод и уверенность.
 
-Test a similar task class under a fixed configuration and record manual interventions. If the upstream quota, model, OS, prompt or tested task differs, label the comparison observational, not a controlled experiment. A single passing run is not proof of stable reliability.
+## Защита данных
 
-## Evaluation metrics
+По умолчанию публикуются только количества, суммарные задержки, версии и синтетические шаги воспроизведения. Любой экспорт необходимо проверить вручную перед публикацией. Никогда не загружайте автоматически сырые журналы или рабочую SQLite-базу.
 
-Task acceptance rate, time to first useful tool call, successful/failed model attempts, DSH retry counts vs Camel retry counts, retry wait time, long-task checkpoint integrity, unnecessary duplicate file reads, tool errors, real upstream calls (only if identifiable), and known token/credit cost.
+## Корректное сравнение
 
-## Publishable experiment
+Сравнивайте сопоставимые типы заданий при фиксированной конфигурации, учитывая ручные вмешательства. Если менялись модель, квота, ОС, промпт или само задание, называйте результаты наблюдательными, а не строгим контролируемым экспериментом. Один успех не доказывает устойчивость.
 
-A valid report links a sanitized template, evidence count, method, version/date, observed behavior, alternative explanations and a short conclusion. Mark invalid or withdrawn findings with an explanation rather than deleting their history.
+## Метрики
+
+Доля принятых заданий; время до первого полезного инструмента; успешные и неуспешные попытки модели; повторы DSH и Camel отдельно; затраты времени на повторы; сохранность контрольных точек; ненужные повторные чтения файлов; ошибки инструментов; реальные запросы к провайдеру (только когда достоверно определимы); подтверждённые затраты токенов и кредитов.
+
+## Как оформить результат
+
+Отчёт должен содержать обезличенный шаблон, количество наблюдений, условия, версии, дату, наблюдаемое поведение, альтернативные объяснения и краткий вывод. Ошибочные или отозванные заключения исправляйте с объяснением, не удаляя историю без следа.
