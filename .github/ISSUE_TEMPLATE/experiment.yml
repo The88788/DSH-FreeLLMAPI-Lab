@@ -1,0 +1,31 @@
+name: Sanitized experiment report
+description: Report tested behavior without sharing raw DSH logs or private code
+body:
+  - type: markdown
+    attributes:
+      value: "Do not upload credentials, raw session exports, prompts, private source code, full paths, user IDs or operational databases."
+  - type: input
+    id: environment
+    attributes:
+      label: Software versions and OS
+      description: "DSH, Camel, FreeLLMAPI and OS versions. Write unknown if not verified."
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Exact provider/model route
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Synthetic reproduction steps and acceptance criteria
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Aggregated results and limitations
+    validations:
+      required: true

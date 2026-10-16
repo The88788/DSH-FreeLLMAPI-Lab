@@ -1,0 +1,26 @@
+# Local and sensitive data - never commit raw session exports
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+*.db
+*.jsonl
+*.jsonl.zstd
+*.zip
+*.zst
+*.zstd
+private/
+secrets/
+local-runs/
+*.bak
+*.bak-*
+__pycache__/
+.pytest_cache/
+.venv/
+node_modules/
+.DS_Store

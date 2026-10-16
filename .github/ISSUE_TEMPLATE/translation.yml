@@ -1,0 +1,30 @@
+name: Translation or native-language review
+description: Improve an existing translation or volunteer for a new locale
+body:
+  - type: input
+    id: locale
+    attributes:
+      label: Language and locale
+      placeholder: 'zh-CN, fr-FR, es-ES, ...'
+    validations:
+      required: true
+  - type: input
+    id: path
+    attributes:
+      label: Source document path
+    validations:
+      required: true
+  - type: dropdown
+    id: review
+    attributes:
+      label: Language review status
+      options:
+        - Machine-assisted draft, needs native review
+        - Reviewed by fluent speaker
+        - Native-speaker review offered
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Translation comments or terminology questions

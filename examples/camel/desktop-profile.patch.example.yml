@@ -1,0 +1,41 @@
+# EXPERIMENTAL fragment for a DSH profile with dsh-camel already installed.
+# Merge by row id camel; do not append a second camel row.
+# Camel matches exact (DSH provider, model) pairs, not the upstream provider name.
+- id: camel
+  config:
+    defaults:
+      throttle:
+        enabled: false
+      retry:
+        enabled: false
+      adaptive:
+        enabled: false
+        windowMs: 60000
+        initialRequests: 2
+        minRequests: 1
+        maxRequests: 3
+        safetyRatio: 0.85
+        decreaseRatio: 0.7
+        increaseAfterWindows: 3
+        stateTtlMs: 86400000
+        routes:
+          - provider: gateway
+            model: radeon:DeepSeek-V4-Flash
+            enabled: true
+            initialRequests: 3
+            maxRequests: 4
+          - provider: gateway
+            model: xkiro:qwen/qwen3.8-max:free
+            enabled: true
+            initialRequests: 3
+            maxRequests: 4
+          - provider: gateway
+            model: mistral:ministral-14b-2512
+            enabled: true
+            initialRequests: 2
+            maxRequests: 2
+          - provider: gateway
+            model: groq:qwen/qwen3.8-27b
+            enabled: true
+            initialRequests: 2
+            maxRequests: 2

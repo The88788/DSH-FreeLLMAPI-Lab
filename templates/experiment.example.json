@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "status": "draft",
+  "dateUtc": "YYYY-MM-DD",
+  "environment": {
+    "os": "Windows 11",
+    "dshVersion": "unknown",
+    "camelVersion": "unknown",
+    "freellmapiVersion": "unknown",
+    "configurationId": "nonsecret-git-commit-or-local-hash"
+  },
+  "route": {
+    "dshProvider": "gateway",
+    "model": "replace-with-model-id",
+    "quotaEvidence": "unknown"
+  },
+  "task": {
+    "class": "short|medium|long",
+    "fixtureId": "public-synthetic-fixture",
+    "acceptanceCriteria": "test assertions or human review summary without private content"
+  },
+  "result": {
+    "agentTurnCompleted": null,
+    "taskAccepted": null,
+    "attemptErrors": {},
+    "dshRetries": null,
+    "camelRetries": null,
+    "toolCalls": null,
+    "timeToFirstToolMs": null,
+    "manualModelSwitches": null,
+    "limitations": "not yet tested"
+  }
+}
