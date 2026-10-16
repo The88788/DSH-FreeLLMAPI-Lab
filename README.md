@@ -1,36 +1,41 @@
 # DSH-FreeLLMAPI-Lab
 
-**English** · [Русский](README.ru.md) · [简体中文](README.zh-CN.md)
+**Русский** · [English](README.en.md) · [简体中文](README.zh-CN.md)
 
-Independent community research on real-world **DeepSeek Harness (DSH)**, **dsh-camel** and **FreeLLMAPI** reliability.
+Независимая открытая лаборатория для настройки и исследования надёжности **DeepSeek Harness (DSH)**, **dsh-camel** и **FreeLLMAPI** на реальных задачах программирования.
 
-> **Status: EXPERIMENTAL, pre-v0.1.0.** Examples are starting points, not guaranteed provider limits or officially supported profiles. This project is independent of the upstream maintainers.
+> **Статус: экспериментальный (до v0.1.0).** Примеры конфигураций пока не считаются проверенными на всех моделях и не гарантируют заявленные квоты. Это независимый проект сообщества, а не официальная документация авторов DSH, Camel или FreeLLMAPI.
 
-## Why this exists
+## Зачем это нужно
 
-An OpenAI-compatible API returning `200 OK` does not imply a coding agent can finish a task. Rate limits, duplicate retry layers, underestimated request limits, sandbox failures and tool-call issues can interrupt real workflows. We want reproducible, safe, and measurable experiments instead of unsupported compatibility claims.
+Успешный ответ API (`HTTP 200`) ещё не означает, что AI-агент справился с задачей. Лимиты запросов и токенов, двойные повторы DSH/Camel, ограничения контекста, ошибки инструментов и Windows Sandbox могут обрывать работу.
 
-## What's inside
+Мы собираем воспроизводимые результаты, проверяем настройки на реальных задачах и учимся сокращать потери времени и квот, не выдавая догадки за проверенные факты.
 
-- [Project roadmap and progress journal](ROADMAP.md) ([Russian overview](ROADMAP.ru.md))
-- [Experiment and evaluation methodology](docs/methodology.md)
-- [Sanitized baseline: 33 DSH sessions](research/2026-10-16-baseline.md)
-- [Experimental DSH gateway example](examples/dsh/gateway-minimal.example.yml)
-- [Experimental dsh-camel profile example](examples/camel/desktop-profile.patch.example.yml)
-- [Contribution rules](CONTRIBUTING.md) and [data security policy](SECURITY.md)
+## С чего начать
 
-## Quick start
+1. Прочитать [план проекта и журнал выполненных этапов](ROADMAP.md). [English](ROADMAP.en.md).
+2. Ознакомиться с [методикой проверки](docs/methodology.md).
+3. Посмотреть [обезличенный аудит 33 сессий DSH](research/2026-10-16-baseline.md).
+4. Изучить [пример настройки шлюза DSH](examples/dsh/gateway-minimal.example.yml) и [пример настройки Camel](examples/camel/desktop-profile.patch.example.yml).
+5. Перед сбором журналов обязательно прочитать [правила безопасности](SECURITY.md).
+6. Для собственного исследования использовать [шаблон эксперимента](templates/experiment.example.json).
 
-1. Read [SECURITY.md](SECURITY.md) before collecting or sharing any data.
-2. Install and configure DSH, FreeLLMAPI and optionally dsh-camel using their own official instructions.
-3. **Merge**, don't replace, the relevant `llm-pi-ai` or `camel` row in your own profile. Never commit your private profile or credential files.
-4. Select a task with verifiable acceptance criteria and use the [experiment template](templates/experiment.example.json).
-5. Record real tool calls, errors and task acceptance; do not equate a completed turn with a completed project task.
+**Важно:** не заменяйте действующий профиль DSH целиком примером из репозитория. Переносите только нужные поля с резервной копией и проверяйте совместимость со своей версией.
 
-## Contribute
+## Текущие задачи
 
-We welcome tested configurations, quota observations with a source/date, reproducible issues, compatibility research, safety improvements and translations. Native speakers are especially welcome to review machine-assisted Chinese translations and maintain additional languages.
+- [Задача #1: проверить настройки DSH и Camel на реальных заданиях](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/1).
+- [Задача #2: разработать локальный сборщик и анализатор сессий](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/2).
 
-**Please submit aggregate results or synthetic fixtures only.** Do not upload raw session exports, prompts, proprietary source code, credentials or identifying information.
+## Как помочь проекту
 
-Start with [CONTRIBUTING.md](CONTRIBUTING.md). This project is MIT-licensed.
+Принимаем результаты повторяемых экспериментов, проверенные настройки, сведения о квотах с датой и источником, сообщения об ошибках, улучшения анализатора и переводы.
+
+Особенно приветствуется проверка китайской версии носителями языка и добавление других языков. Основной рабочий план ведётся на русском; английские материалы предназначены для международного сообщества.
+
+Читайте [правила участия](CONTRIBUTING.md) и [безопасности](SECURITY.md).
+
+**Не размещайте в Issues и PR сырые журналы DSH, API-ключи, приватные промпты, содержимое коммерческих проектов и личные данные.** Публикуются только проверенные обезличенные сводки или синтетические примеры.
+
+Лицензия: [MIT](LICENSE).
