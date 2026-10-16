@@ -1,6 +1,6 @@
 # DSH-FreeLLMAPI-Lab
 
-[English](README.md) · [Русский](README.ru.md) · **简体中文**
+[English](README.en.md) · [Русский](README.md) · **简体中文**
 
 这是一个独立的社区研究项目，关注 **DeepSeek Harness（DSH）**、**dsh-camel** 与 **FreeLLMAPI** 在真实编程代理任务中的可靠性。
 
@@ -12,12 +12,12 @@
 
 ## 项目内容
 
-- [项目路线图与进度记录（英文）](ROADMAP.md)
-- [测试方法（英文）](docs/methodology.md)
+- [项目路线图与进度记录（俄文）](ROADMAP.md)
+- [测试方法（俄文）](docs/methodology.md)
 - [33 个 DSH 会话的匿名统计](research/2026-10-16-baseline.md)
 - [DSH 网关配置示例（实验性）](examples/dsh/gateway-minimal.example.yml)
 - [dsh-camel 配置示例（实验性）](examples/camel/desktop-profile.patch.example.yml)
-- [贡献指南（英文）](CONTRIBUTING.md)与[安全须知（英文）](SECURITY.md)
+- [贡献指南（俄文）](CONTRIBUTING.md)与[安全须知（俄文）](SECURITY.md)
 
 ## 欢迎参与
 
