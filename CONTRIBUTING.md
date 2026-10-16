@@ -1,27 +1,33 @@
-# Contributing
+# Как участвовать в проекте
 
-Thank you for helping make AI coding-agent behavior measurable and reproducible.
+**Русский** · [English](CONTRIBUTING.en.md) · [Главная страница](README.md)
 
-Contributions welcome: realistic tests, corrected config examples, verified quota data with a date/source, analyzer improvements, documentation, synthetic fixtures, and human-reviewed translations.
+Спасибо за помощь в исследовании надёжности AI-агентов. Мы собираем **проверяемые** результаты, а не списки якобы работающих моделей.
 
-## Evidence requirements
+## Что можно предложить
 
-Provide the relevant DSH/Camel/FreeLLMAPI versions, OS, exact non-secret model/route identifiers, steps to reproduce, expected vs actual behavior, the number of runs, and whether the **task passed acceptance criteria**. A dashboard/chat success alone is not evidence of an agent workflow pass.
+Реальные результаты тестов, проверенные YAML-конфигурации, сведения об ограничениях с источником и датой, исправления анализатора, документы, безопасные искусственные тестовые данные и переводы, проверенные носителями языка.
 
-For quotas, distinguish officially documented limits from experimental observations. State whether an apparent limit is per key, account, model, or unknown. Report the source and observation date. Don't publish quotas inferred from a single error as fact.
+## Что приложить к исследованию
 
-## Data safety
+Укажите версию DSH, dsh-camel, FreeLLMAPI, ОС, точный идентификатор модели и маршрута (без ключей), шаги воспроизведения, ожидаемое и фактическое поведение, количество запусков и **прошло ли задание проверку требований**. Простой успех в панели провайдера или `HTTP 200` не является доказательством завершения работы агента.
 
-Never attach raw DSH exports, API keys, cookies, complete prompts, user code, proprietary repositories, absolute private paths, user identifiers, or an unredacted SQLite database. Use sanitized summaries and synthetic test fixtures. See [SECURITY.md](SECURITY.md).
+Если речь о квотах, отличайте официальную документацию от собственного наблюдения. Укажите дату, источник и уровень применения лимита: отдельный ключ, аккаунт, модель или неизвестно. Одна ошибка `429` не доказывает точный RPM.
 
-## Pull requests
+## Безопасность
 
-Keep PRs small and scoped. A PR changing adaptive pacing must explain its logic and include a reproducible test. A PR translating docs should identify its source version, target locale, and whether it was reviewed by a native speaker. Documentation may use AI-assisted drafts; human reviewers remain responsible for factual and linguistic accuracy.
+**Не публикуйте** сырые журналы DSH, API-ключи, cookie, полные промпты, исходники коммерческих проектов, персональные пути, идентификаторы пользователей и рабочие SQLite-базы. Допускаются проверенные обезличенные сводки и синтетические тестовые файлы.
 
-## Work tracking
+Подробности: [SECURITY.md](SECURITY.md).
 
-Use GitHub Issues to discuss problems. Update [ROADMAP.md](ROADMAP.md) only when milestone evidence supports a change. Every finished stage gets a dated line in the progress journal.
+## Pull Request
 
-## External projects
+Делайте небольшие тематические PR. Для изменения параметров Camel нужны объяснение и воспроизводимый тест. Для перевода укажите исходную версию, язык, факт проверки носителем языка или отметку, что проверка ещё нужна.
 
-This independent project is not an official part of DeepSeek Harness, dsh-camel or FreeLLMAPI. Respect upstream projects' licenses and contribution guidelines.
+Черновики документов могут создаваться с помощью ИИ, но ответственность за техническую и языковую точность остаётся за автором PR.
+
+## Учёт задач
+
+Ошибки и предложения обсуждаем в [GitHub Issues](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues). Выполненные этапы отмечаем в [ROADMAP.md](ROADMAP.md) только после подтверждения результата. Для каждого этапа нужна запись с датой и ссылкой на проверку.
+
+Проект независим от разработчиков DeepSeek Harness, dsh-camel и FreeLLMAPI. Соблюдайте лицензии и правила сторонних проектов.
