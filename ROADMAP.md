@@ -32,14 +32,16 @@ Build a reproducible, independent community lab for improving **DeepSeek Harness
 
 - [x] Draft the repository charter, progress file, templates, safety guidance, and sample configurations locally (2026-10-17).
 - [x] Create the public GitHub repository **The88788/DSH-FreeLLMAPI-Lab** and upload the starter files (2026-10-17).
-- [ ] Verify all links, Markdown files, example YAML, and README language navigation on GitHub.
+- [x] Verify the published file tree (18 files), Markdown relative links, YAML/JSON syntax, and README language navigation (2026-10-17).
 - [ ] Review the English and Russian guides; ask a native Chinese reader to review the Chinese draft.
-- [ ] Mark all initial configurations **EXPERIMENTAL** until real coding-task verification.
+- [x] Mark all initial configurations **EXPERIMENTAL** until real coding-task verification.
 - [ ] Publish release/tag `v0.1.0` only after the public GitHub repository passes these checks.
 
 **Exit criteria:** public repository is accessible, no secrets or private logs have been committed, multilingual landing pages work, methodology is documented, and the testable configs are clearly labelled experimental.
 
 ### Stage 2: Local session collection and analysis (v0.2)
+
+Tracked in [Issue #2: Local session collector and analyzer](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/2).
 
 - [ ] Implement `dsh-collect`: discover sessions from the configured DSH root (default `%USERPROFILE%\\.dsh\\sessions`), include `.jsonl` and `.jsonl.zstd` generations, avoid the known mistake of filtering **only** by last modification time, and track collection state.
 - [ ] Add portable, reproducible **Zstandard decoding** and supported session schema/version checks. On unsupported formats, fail clearly instead of guessing.
@@ -89,6 +91,11 @@ Build a reproducible, independent community lab for improving **DeepSeek Harness
 - [ ] Document limitations, upstream service terms, and fallback/rollback scenarios.
 - [ ] Ship tagged v1.0 with tested installation, data safety, and contribution workflows.
 
+## Active work
+
+- [Issue #1: Verify DSH retry policy and real coding-task acceptance](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/1) (Stage 0, priority 1)
+- [Issue #2: Build local-only DSH session collector and analyzer](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/2) (Stage 2, priority 2)
+
 ## Initial validation protocol (proposed)
 
 1. **Freeze baseline**: record sanitized DSH/Camel/FreeLLMAPI versions; store a private copy of the original configuration, plus the config checksum and date of change.
@@ -112,7 +119,8 @@ Build a reproducible, independent community lab for improving **DeepSeek Harness
 |---|---|---|---|
 | 2026-10-15/16 | Completed | Historic DSH incident analysis | 33 sessions; 4,028 events; 166 retry events; outcomes require task-level verification. Source private, statistics sanitized. |
 | 2026-10-17 | Completed | Camel loading check | User-provided `/camel status`: 8 route overrides, `retry.enabled=false`, taskOverride=null; runtime pacing effectiveness not yet evaluated. |
-| 2026-10-17 | Completed | Repository initialized with 18 starter files | Published initial docs, MIT license, samples and sanitized baseline; verify live links and begin post-config task tests. |
+| 2026-10-17 | Completed | Public foundation published | 18 files on main, README EN/RU/ZH, license, research, example configs; local syntax and link targets verified. |
+| 2026-10-17 | Started | Tracking implementation and validation | Opened [Issue #1](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/1) and [Issue #2](https://github.com/The88788/DSH-FreeLLMAPI-Lab/issues/2). Real-task tests pending. |
 
 ## How to maintain this file
 
